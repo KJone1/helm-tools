@@ -21,13 +21,10 @@ RUN <<EOF
   ###
   # --- Helm-tools V1 plugins ---
   helm plugin install https://github.com/komodorio/helm-dashboard.git
-  helm plugin install https://github.com/adamreese/helm-env
   helm plugin install https://github.com/chartmuseum/helm-push
   helm plugin install https://github.com/jkroepke/helm-secrets
-  helm plugin install https://github.com/hypnoglow/helm-s3.git
   helm plugin install https://github.com/nikhilsbhat/helm-images
   helm plugin install https://github.com/databus23/helm-diff
-  helm plugin install https://github.com/aslafy-z/helm-git
   # --- Helm-tools V2 plugins ---
   helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen.git
   helm plugin install https://github.com/helm-unittest/helm-unittest.git
