@@ -31,6 +31,10 @@ RUN <<EOF
   helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen.git
   helm plugin install https://github.com/helm-unittest/helm-unittest.git
   helm plugin install https://github.com/halkeye/helm-repo-html
+  ###
+  curl -fsSL -o kubeconform.tar.gz https://github.com/yannh/kubeconform/releases/download/v0.6.3/kubeconform-linux-amd64.tar.gz
+  tar -xvzf kubeconform.tar.gz
+  mv kubeconform /usr/local/bin
 
 EOF
 
