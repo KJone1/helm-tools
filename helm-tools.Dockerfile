@@ -24,7 +24,7 @@ RUN <<EOF
   ###
   # --- Helm-tools V1 plugins ---
   helm plugin install https://github.com/chartmuseum/helm-push
-  helm plugin install https://github.com/jkroepke/helm-secrets
+  helm plugin install https://github.com/jkroepke/helm-secretsC
   helm plugin install https://github.com/nikhilsbhat/helm-images
   helm plugin install https://github.com/databus23/helm-diff
   # --- Helm-tools V2 plugins ---
@@ -35,6 +35,12 @@ RUN <<EOF
   curl -fsSL -o kubeconform.tar.gz https://github.com/yannh/kubeconform/releases/download/v0.6.3/kubeconform-linux-amd64.tar.gz
   tar -xvzf kubeconform.tar.gz
   mv kubeconform /usr/local/bin
+  ###
+  curl -fsSL -o /usr/local/bin/kube-score https://github.com/zegl/kube-score/releases/download/v1.17.0/kube-score_1.17.0_linux_amd64
+  chmod 755 /usr/local/bin/kube-score
+  ###
+  curl -fsSL -o /usr/local/bin/kube-linter https://github.com/stackrox/kube-linter/releases/download/v0.6.4/kube-linter-linux
+  chmod 755 /usr/local/bin/kube-linter
 
 EOF
 
