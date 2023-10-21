@@ -1,9 +1,18 @@
 
-# Helm Tools Container Image
-
 ![Logo](./assets/logo.png)
 
+## About
+
 Container image with a bunch of useful Helm tools I made for myself.
+
+## Includes
+
+- helm
+- helm-docs
+- helmfile
+- kubectl
+- Several helm plugins
+- kubeconform, kube-score, kube-linter
 
 ## Run Locally
 
