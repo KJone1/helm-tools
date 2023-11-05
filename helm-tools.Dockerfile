@@ -4,7 +4,7 @@ WORKDIR /opt
 
 RUN <<EOF
   apt-get update && apt-get upgrade -y 
-  apt-get install curl git-core -y 
+  apt-get install curl git-core -y
   ### Install Helm ###
   curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 
   chmod 700 get_helm.sh 
@@ -23,14 +23,14 @@ RUN <<EOF
   chmod 755 /usr/local/bin/kubectl
   ###
   # --- Helm-tools V1 plugins ---
-  helm plugin install https://github.com/chartmuseum/helm-push
-  helm plugin install https://github.com/jkroepke/helm-secretsC
-  helm plugin install https://github.com/nikhilsbhat/helm-images
-  helm plugin install https://github.com/databus23/helm-diff
+  helm plugin install https://github.com/chartmuseum/helm-push.git
+  helm plugin install https://github.com/jkroepke/helm-secrets.git
+  helm plugin install https://github.com/nikhilsbhat/helm-images.git
+  helm plugin install https://github.com/databus23/helm-diff.git
   # --- Helm-tools V2 plugins ---
   helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen.git
   helm plugin install https://github.com/helm-unittest/helm-unittest.git
-  helm plugin install https://github.com/halkeye/helm-repo-html
+  helm plugin install https://github.com/halkeye/helm-repo-html.git
   ###
   curl -fsSL -o kubeconform.tar.gz https://github.com/yannh/kubeconform/releases/download/v0.6.3/kubeconform-linux-amd64.tar.gz
   tar -xvzf kubeconform.tar.gz
