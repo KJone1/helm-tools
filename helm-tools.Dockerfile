@@ -17,7 +17,6 @@ RUN <<EOF
   curl -fsSL -o helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v0.157.0/helmfile_0.157.0_linux_amd64.tar.gz
   tar -xvzf helmfile.tar.gz
   install helmfile /usr/local/bin
-  chown root:root /usr/local/bin/helmfile
   ### Install helm-docs ###
   curl -fsSL -o helm-docs.tar.gz https://github.com/norwoodj/helm-docs/releases/download/v1.11.2/helm-docs_1.11.2_Linux_x86_64.tar.gz
   tar -xvzf helm-docs.tar.gz
