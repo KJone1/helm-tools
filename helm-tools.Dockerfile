@@ -5,6 +5,10 @@ WORKDIR /opt
 RUN <<EOF
   apt-get update && apt-get upgrade -y 
   apt-get install curl git-core -y
+  apt install build-essential -y
+
+  install /usr/bin/make /usr/local/bin/make
+  
   ### Install Helm ###
   curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 
   chmod 700 get_helm.sh 
@@ -53,6 +57,8 @@ ENV HELM_PLUGINS="/opt/helm/plugins"
 ENV KUBECONFIG="/opt/config"
 
 COPY --from=build /usr/local/bin/ /usr/local/bin/
+# Make so dependencie
+COPY --from=build /usr/lib/x86_64-linux-gnu/libdl.so.2 /lib/libdl.so.2
 COPY --from=build /root/.local/share/helm/plugins /opt/helm/plugins
 
 CMD [ "/bin/ash" ]
