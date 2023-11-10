@@ -11,6 +11,7 @@ Container image with a bunch of useful Helm tools I made for myself.
 - helm-docs
 - helmfile
 - kubectl
+- make
 - Several helm plugins
 - kubeconform, kube-score, kube-linter
 
