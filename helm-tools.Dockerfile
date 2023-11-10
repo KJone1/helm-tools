@@ -16,12 +16,12 @@ RUN <<EOF
   ### Install helmfile ###
   curl -fsSL -o helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v0.157.0/helmfile_0.157.0_linux_amd64.tar.gz
   tar -xvzf helmfile.tar.gz
-  mv helmfile /usr/local/bin
+  install helmfile /usr/local/bin
   chown root:root /usr/local/bin/helmfile
   ### Install helm-docs ###
   curl -fsSL -o helm-docs.tar.gz https://github.com/norwoodj/helm-docs/releases/download/v1.11.2/helm-docs_1.11.2_Linux_x86_64.tar.gz
   tar -xvzf helm-docs.tar.gz
-  mv helm-docs /usr/local/bin
+  install helm-docs /usr/local/bin
   ### Install kubectl ###
   curl -L -o /usr/local/bin/kubectl https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl
   chmod 755 /usr/local/bin/kubectl
@@ -38,7 +38,7 @@ RUN <<EOF
   ###
   curl -fsSL -o kubeconform.tar.gz https://github.com/yannh/kubeconform/releases/download/v0.6.3/kubeconform-linux-amd64.tar.gz
   tar -xvzf kubeconform.tar.gz
-  mv kubeconform /usr/local/bin
+  install kubeconform /usr/local/bin
   ###
   curl -fsSL -o /usr/local/bin/kube-score https://github.com/zegl/kube-score/releases/download/v1.17.0/kube-score_1.17.0_linux_amd64
   chmod 755 /usr/local/bin/kube-score
