@@ -43,7 +43,7 @@ RUN <<EOF
 
 EOF
 
-### --- install Helm plugins ---
+### --- Install Helm plugins ---
 RUN <<EOF
 
   # Helm-tools V1 plugins
@@ -68,7 +68,7 @@ ENV HELM_PLUGINS="/opt/helm/plugins"
 ENV KUBECONFIG="/opt/config"
 
 COPY --from=build /usr/local/bin/ /usr/local/bin/
-# Make so dependencie
+# Make so dependency
 COPY --from=build /usr/lib/x86_64-linux-gnu/libdl.so.2 /lib/libdl.so.2
 COPY --from=build /root/.local/share/helm/plugins /opt/helm/plugins
 
