@@ -2,13 +2,19 @@ FROM debian:stable-slim as build
 
 WORKDIR /opt
 
+### --- Prep ---
 RUN <<EOF
+
   apt-get update && apt-get upgrade -y 
   apt-get install curl git-core -y
   apt install build-essential -y
 
   install /usr/bin/make /usr/local/bin/make
-  
+
+EOF
+
+RUN <<EOF
+
   ### Install Helm ###
   curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 
   chmod 700 get_helm.sh 
@@ -25,16 +31,6 @@ RUN <<EOF
   curl -L -o /usr/local/bin/kubectl https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl
   chmod 755 /usr/local/bin/kubectl
   ###
-  # --- Helm-tools V1 plugins ---
-  helm plugin install https://github.com/chartmuseum/helm-push.git
-  helm plugin install https://github.com/jkroepke/helm-secrets.git
-  helm plugin install https://github.com/nikhilsbhat/helm-images.git
-  helm plugin install https://github.com/databus23/helm-diff.git
-  # --- Helm-tools V2 plugins ---
-  helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen.git
-  helm plugin install https://github.com/helm-unittest/helm-unittest.git
-  helm plugin install https://github.com/halkeye/helm-repo-html.git
-  ###
   curl -fsSL -o kubeconform.tar.gz https://github.com/yannh/kubeconform/releases/download/v0.6.3/kubeconform-linux-amd64.tar.gz
   tar -xvzf kubeconform.tar.gz
   install kubeconform /usr/local/bin
@@ -46,6 +42,22 @@ RUN <<EOF
   chmod 755 /usr/local/bin/kube-linter
 
 EOF
+
+### --- install Helm plugins ---
+RUN <<EOF
+
+  # Helm-tools V1 plugins
+  helm plugin install https://github.com/chartmuseum/helm-push.git
+  helm plugin install https://github.com/jkroepke/helm-secrets.git
+  helm plugin install https://github.com/nikhilsbhat/helm-images.git
+  helm plugin install https://github.com/databus23/helm-diff.git
+  # Helm-tools V2 plugins 
+  helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen.git
+  helm plugin install https://github.com/helm-unittest/helm-unittest.git
+  helm plugin install https://github.com/halkeye/helm-repo-html.git
+
+EOF
+
 
 FROM busybox:1.35.0-glibc
 
