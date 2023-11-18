@@ -24,7 +24,7 @@ RUN <<EOF
   tar -xvzf helmfile.tar.gz
   install helmfile /usr/local/bin
   ### Install helm-docs ###
-  curl -fsSL -o helm-docs.tar.gz https://github.com/norwoodj/helm-docs/releases/download/v1.11.2/helm-docs_1.11.2_Linux_x86_64.tar.gz
+  curl -fsSL -o helm-docs.tar.gz https://github.com/norwoodj/helm-docs/releases/download/v1.11.3/helm-docs_1.11.3_Linux_x86_64.tar.gz
   tar -xvzf helm-docs.tar.gz
   install helm-docs /usr/local/bin
   ### Install kubectl ###
@@ -51,7 +51,7 @@ RUN <<EOF
   helm plugin install https://github.com/jkroepke/helm-secrets.git
   helm plugin install https://github.com/nikhilsbhat/helm-images.git
   helm plugin install https://github.com/databus23/helm-diff.git
-  # Helm-tools V2 plugins 
+  # Helm-tools V2 plugins
   helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen.git
   helm plugin install https://github.com/helm-unittest/helm-unittest.git
   helm plugin install https://github.com/halkeye/helm-repo-html.git
