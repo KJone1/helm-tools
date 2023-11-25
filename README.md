@@ -35,6 +35,12 @@ Build the Container
   sudo docker build -f helm-tools.Dockerfile -t helmtools:v1 .
 ```
 
+Run
+
+```bash
+  sudo docker run -v {dir with helm chart}:/opt/charts -it helmtools:v1 ash
+```
+
 ## Authors
 
 - [@KJone1](https://github.com/KJone1)
