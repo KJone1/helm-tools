@@ -47,14 +47,14 @@ EOF
 RUN <<EOF
 
   # Helm-tools V1 plugins
-  helm plugin install https://github.com/chartmuseum/helm-push.git
-  helm plugin install https://github.com/jkroepke/helm-secrets.git
-  helm plugin install https://github.com/nikhilsbhat/helm-images.git
-  helm plugin install https://github.com/databus23/helm-diff.git
+  helm plugin install https://github.com/chartmuseum/helm-push
+  helm plugin install https://github.com/jkroepke/helm-secrets
+  helm plugin install https://github.com/nikhilsbhat/helm-images
+  helm plugin install https://github.com/databus23/helm-diff
   # Helm-tools V2 plugins
-  helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen.git
-  helm plugin install https://github.com/helm-unittest/helm-unittest.git
-  helm plugin install https://github.com/halkeye/helm-repo-html.git
+  helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen
+  helm plugin install https://github.com/helm-unittest/helm-unittest
+  helm plugin install https://github.com/halkeye/helm-repo-html
 
 EOF
 
