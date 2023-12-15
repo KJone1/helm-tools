@@ -20,7 +20,7 @@ RUN <<EOF
   chmod 700 get_helm.sh 
   ./get_helm.sh
   ### Install helmfile ###
-  curl -fsSL -o helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v0.157.0/helmfile_0.157.0_linux_amd64.tar.gz
+  curl -fsSL -o helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v0.159.0/helmfile_0.159.0_linux_amd64.tar.gz
   tar -xvzf helmfile.tar.gz
   install helmfile /usr/local/bin
   ### Install helm-docs ###
