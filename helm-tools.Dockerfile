@@ -58,6 +58,16 @@ RUN <<EOF
 
 EOF
 
+RUN <<EOF
+  # yq -- https://github.com/mikefarah/yq
+  curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+  chmod 755 /usr/local/bin/yq
+  # taskfile -- https://taskfile.dev/
+  curl -fsSL -o task.tar.gz https://github.com/go-task/task/releases/download/v3.35.1/task_linux_amd64.tar.gz
+  tar -xvzf task.tar.gz
+  install task /usr/local/bin
+
+EOF
 
 FROM busybox:1.35.0-glibc
 
