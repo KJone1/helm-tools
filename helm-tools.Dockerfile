@@ -8,8 +8,10 @@ RUN <<EOF
   apt-get update && apt-get upgrade -y 
   apt-get install curl git-core -y
   apt install build-essential -y
+  apt-get install jq -y
 
   install /usr/bin/make /usr/local/bin/make
+  install /usr/bin/jq /usr/local/bin/jq
 
 EOF
 
@@ -78,8 +80,10 @@ ENV HELM_PLUGINS="/opt/helm/plugins"
 ENV KUBECONFIG="/opt/config"
 
 COPY --from=build /usr/local/bin/ /usr/local/bin/
-# Make so dependency
-COPY --from=build /usr/lib/x86_64-linux-gnu/libdl.so.2 /lib/libdl.so.2
 COPY --from=build /root/.local/share/helm/plugins /opt/helm/plugins
+# so dependencies
+COPY --from=build /usr/lib/x86_64-linux-gnu/libdl.so.2 /lib/libdl.so.2
+COPY --from=build /usr/lib/x86_64-linux-gnu/libjq.so.1 /lib/libjq.so.1
+COPY --from=build /usr/lib/x86_64-linux-gnu/libonig.so.5 /lib/libonig.so.5
 
 CMD [ "/bin/ash" ]

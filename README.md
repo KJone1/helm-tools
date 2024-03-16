@@ -15,7 +15,7 @@ Useful for easy local development of Helm charts.
 - make & task (taskfile)
 - Several helm plugins
 - kubeconform, kube-score, kube-linter
-- yq
+- yq & jq
 
 ## Run Locally
 
