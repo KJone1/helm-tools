@@ -7,13 +7,13 @@ vars:
 
 tasks:
   default:
-    desc: list all available tasks
+    desc: List all available tasks
     cmds:
       - task -a
   build:
     desc: Build the Docker image
     vars:
-      # split cli args by space and take only first one
+      # split cli args by space and use only the first one and ignore the rest
       TAG: '{{( first (splitList " " .CLI_ARGS)) | default "latest"}}'
     prompt: Build {{.IMAGE_NAME}}:{{.TAG}} ? 
     cmds:
