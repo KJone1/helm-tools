@@ -1,0 +1,20 @@
+version: '3'
+
+silent: true
+
+vars:
+  IMAGE_NAME: helm-tools
+
+tasks:
+  default:
+    desc: list all available tasks
+    cmds:
+      - task -a
+  build:
+    desc: Build the Docker image
+    vars:
+      # split cli args by space and take only first one
+      TAG: '{{( first (splitList " " .CLI_ARGS)) | default "latest"}}'
+    prompt: Build {{.IMAGE_NAME}}:{{.TAG}} ? 
+    cmds:
+      - sudo nerdctl build -f helm-tools.Dockerfile -t {{.IMAGE_NAME}}:{{.TAG}} .
