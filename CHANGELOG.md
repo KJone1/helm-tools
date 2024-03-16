@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2024-03-16 - [ v3.rc1 ]
+
+- Add yq and jq
+- Add go-task (taskfile)
+
 ## 2023-12-15 - [ v2 ]
 
 - Bump helmfile to 0.159.0
