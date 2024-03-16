@@ -4,7 +4,7 @@
 ## About
 
 Container image with a bunch of useful Helm tools.  
-Useful for easy local development of helm charts.
+Useful for easy local development of Helm charts.
 
 ## Includes
 
@@ -37,14 +37,13 @@ git clone https://github.com/KJone1/helm-tools.git
   ```
 - Using CLI
   ```bash
-  cd helm-tools && \
-    sudo docker build -f helm-tools.Dockerfile -t helm-tools:v1 .
+  sudo docker build -f helm-tools.Dockerfile -t helm-tools:v1 .
   ```
 
 #### Run
 
 ```bash
-  sudo docker run -v {dir with helm chart}:/opt/charts -it helmtools:v1 ash
+sudo docker run -v {dir with helm chart}:/opt/charts -it helmtools:v1 ash
 ```
 
 ## Authors
