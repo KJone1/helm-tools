@@ -3,7 +3,8 @@
 
 ## About
 
-Container image with a bunch of useful Helm tools I made for myself.
+Container image with a bunch of useful Helm tools.  
+Useful for easy local development of helm charts.
 
 ## Includes
 
@@ -11,31 +12,36 @@ Container image with a bunch of useful Helm tools I made for myself.
 - helm-docs
 - helmfile
 - kubectl
-- make
+- make & task (taskfile)
 - Several helm plugins
 - kubeconform, kube-score, kube-linter
+- yq
 
 ## Run Locally
 
-Clone the project
+#### Clone
 
 ```bash
-  git clone https://github.com/KJone1/helm-tools.git
+git clone https://github.com/KJone1/helm-tools.git
 ```
 
-Go to the project directory
+#### Build the image
 
-```bash
-  cd helm-tools
-```
+- Using taskfile:
+  ```bash
+  task build # defaults to latest tag
+  ```
+  or
+  ```bash
+  task build -- v1
+  ```
+- Using CLI
+  ```bash
+  cd helm-tools && \
+    sudo docker build -f helm-tools.Dockerfile -t helm-tools:v1 .
+  ```
 
-Build the Container
-
-```bash
-  sudo docker build -f helm-tools.Dockerfile -t helmtools:v1 .
-```
-
-Run
+#### Run
 
 ```bash
   sudo docker run -v {dir with helm chart}:/opt/charts -it helmtools:v1 ash
