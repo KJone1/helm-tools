@@ -1,11 +1,8 @@
 version: '3'
-
 silent: true
-
 vars:
   IMAGE_NAME: helm-tools
   SUDO: true
-
 tasks:
   default:
     desc: List all available tasks
@@ -17,6 +14,6 @@ tasks:
       # split cli args by space and use only the first one and ignore the rest
       TAG: '{{( first (splitList " " .CLI_ARGS)) | default "latest"}}'
       BUILD_TOOL: nerdctl
-    prompt: Build {{.IMAGE_NAME}}:{{.TAG}} ? 
+    prompt: Build {{.IMAGE_NAME}}:{{.TAG}} ?
     cmds:
       - '{{ if eq .SUDO "true" }}sudo{{- end }} {{ .BUILD_TOOL }} build -f helm-tools.Dockerfile -t {{.IMAGE_NAME}}:{{.TAG}} .'

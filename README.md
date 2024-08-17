@@ -1,9 +1,8 @@
-
 ![Logo](./assets/logo.png)
 
 ## About
 
-Container image with a bunch of useful Helm tools.  
+Container image with a bunch of useful Helm tools.\
 Useful for easy local development of Helm charts.
 
 ## Includes
