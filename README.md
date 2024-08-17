@@ -7,11 +7,11 @@ Useful for easy local development of Helm charts.
 
 ## Includes
 
-- helm
+- Helm
 - helm-docs
-- helmfile
-- kubectl
-- make & task (taskfile)
+- Helmfile
+- Kubectl
+- Make & Task (taskfile)
 - Several helm plugins
 - kubeconform, kube-score, kube-linter
 - yq & jq
