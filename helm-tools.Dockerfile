@@ -5,7 +5,7 @@ WORKDIR /opt
 ### --- Prep ---
 RUN <<EOF
 
-  apt-get update && apt-get upgrade -y 
+  apt-get update && apt-get upgrade -y
   apt-get install curl git-core -y
   apt install build-essential -y
   apt-get install jq -y
@@ -18,8 +18,8 @@ EOF
 RUN <<EOF
 
   ### Install Helm ###
-  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 
-  chmod 700 get_helm.sh 
+  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+  chmod 700 get_helm.sh
   ./get_helm.sh
   ### Install helmfile ###
   curl -fsSL -o helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v0.159.0/helmfile_0.159.0_linux_amd64.tar.gz
