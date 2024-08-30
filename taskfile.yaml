@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 silent: true
 vars:
   IMAGE_NAME: helm-tools
@@ -16,4 +16,4 @@ tasks:
       BUILD_TOOL: nerdctl
     prompt: Build {{.IMAGE_NAME}}:{{.TAG}} ?
     cmds:
-      - '{{ if eq .SUDO "true" }}sudo{{- end }} {{ .BUILD_TOOL }} build -f helm-tools.Dockerfile -t {{.IMAGE_NAME}}:{{.TAG}} .'
+      - '{{ if eq .SUDO true }}sudo{{- end }} {{ .BUILD_TOOL }} build -f helm-tools.Dockerfile --progress plain -t {{.IMAGE_NAME}}:{{.TAG}} .'
