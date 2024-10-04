@@ -3,75 +3,61 @@ FROM debian:stable-slim as build
 WORKDIR /opt
 
 ### --- Prep ---
-RUN <<EOF
+RUN apt-get update \
+  && apt-get upgrade -y \
+  && apt-get install --no-install-recommends -y curl git-core build-essential jq ca-certificates\
+  && install /usr/bin/make /usr/local/bin/make \
+  && install /usr/bin/jq /usr/local/bin/jq
 
-  apt-get update && apt-get upgrade -y
-  apt-get install curl git-core -y
-  apt install build-essential -y
-  apt-get install jq -y
+### Install Helm ###
+RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 \
+  && chmod 700 get_helm.sh \
+  && ./get_helm.sh
 
-  install /usr/bin/make /usr/local/bin/make
-  install /usr/bin/jq /usr/local/bin/jq
+### Install helmfile ###
+RUN curl -fsSL -o helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v0.159.0/helmfile_0.159.0_linux_amd64.tar.gz \
+  && tar -xvzf helmfile.tar.gz \
+  && install helmfile /usr/local/bin
 
-EOF
+### Install helm-docs ###
+RUN curl -fsSL -o helm-docs.tar.gz https://github.com/norwoodj/helm-docs/releases/download/v1.14.2/helm-docs_1.14.2_Linux_x86_64.tar.gz \
+  && tar -xvzf helm-docs.tar.gz \
+  && install helm-docs /usr/local/bin
 
-RUN <<EOF
+### Install kubectl ###
+RUN curl -L -o /usr/local/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+  && chmod 755 /usr/local/bin/kubectl
 
-  ### Install Helm ###
-  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-  chmod 700 get_helm.sh
-  ./get_helm.sh
-  ### Install helmfile ###
-  curl -fsSL -o helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v0.159.0/helmfile_0.159.0_linux_amd64.tar.gz
-  tar -xvzf helmfile.tar.gz
-  install helmfile /usr/local/bin
-  ### Install helm-docs ###
-  curl -fsSL -o helm-docs.tar.gz https://github.com/norwoodj/helm-docs/releases/download/v1.11.3/helm-docs_1.11.3_Linux_x86_64.tar.gz
-  tar -xvzf helm-docs.tar.gz
-  install helm-docs /usr/local/bin
-  ### Install kubectl ###
-  curl -L -o /usr/local/bin/kubectl https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl
-  chmod 755 /usr/local/bin/kubectl
-  ###
-  curl -fsSL -o kubeconform.tar.gz https://github.com/yannh/kubeconform/releases/download/v0.6.3/kubeconform-linux-amd64.tar.gz
-  tar -xvzf kubeconform.tar.gz
-  install kubeconform /usr/local/bin
-  ###
-  curl -fsSL -o /usr/local/bin/kube-score https://github.com/zegl/kube-score/releases/download/v1.17.0/kube-score_1.17.0_linux_amd64
-  chmod 755 /usr/local/bin/kube-score
-  ###
-  curl -fsSL -o /usr/local/bin/kube-linter https://github.com/stackrox/kube-linter/releases/download/v0.6.4/kube-linter-linux
-  chmod 755 /usr/local/bin/kube-linter
+RUN curl -fsSL -o kubeconform.tar.gz https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz \
+  && tar -xvzf kubeconform.tar.gz \
+  && install kubeconform /usr/local/bin
 
-EOF
+RUN curl -fsSL -o /usr/local/bin/kube-score https://github.com/zegl/kube-score/releases/download/v1.18.0/kube-score_1.18.0_linux_amd64 \
+  && chmod 755 /usr/local/bin/kube-score
+
+RUN curl -fsSL -o /usr/local/bin/kube-linter https://github.com/stackrox/kube-linter/releases/download/v0.6.8/kube-linter-linux \
+  && chmod 755 /usr/local/bin/kube-linter
 
 ### --- Install Helm plugins ---
-RUN <<EOF
+RUN helm plugin install https://github.com/chartmuseum/helm-push
+RUN helm plugin install https://github.com/jkroepke/helm-secrets
+RUN helm plugin install https://github.com/nikhilsbhat/helm-images
+RUN helm plugin install https://github.com/databus23/helm-diff
+RUN helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen
+RUN helm plugin install https://github.com/helm-unittest/helm-unittest
 
-  # Helm-tools V1 plugins
-  helm plugin install https://github.com/chartmuseum/helm-push
-  helm plugin install https://github.com/jkroepke/helm-secrets
-  helm plugin install https://github.com/nikhilsbhat/helm-images
-  helm plugin install https://github.com/databus23/helm-diff
-  # Helm-tools V2 plugins
-  helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen
-  helm plugin install https://github.com/helm-unittest/helm-unittest
-  helm plugin install https://github.com/halkeye/helm-repo-html
 
-EOF
+# yq -- https://github.com/mikefarah/yq
+RUN curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 \
+  && chmod 755 /usr/local/bin/yq
 
-RUN <<EOF
-  # yq -- https://github.com/mikefarah/yq
-  curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
-  chmod 755 /usr/local/bin/yq
-  # taskfile -- https://taskfile.dev/
-  curl -fsSL -o task.tar.gz https://github.com/go-task/task/releases/download/v3.35.1/task_linux_amd64.tar.gz
-  tar -xvzf task.tar.gz
-  install task /usr/local/bin
+# taskfile -- https://taskfile.dev
+RUN curl -fsSL -o task.tar.gz https://github.com/go-task/task/releases/download/v3.35.1/task_linux_amd64.tar.gz \
+  && tar -xvzf task.tar.gz \
+  && install task /usr/local/bin
 
-EOF
 
-FROM busybox:1.35.0-glibc
+FROM busybox:1.37.0-glibc
 
 WORKDIR /opt
 
