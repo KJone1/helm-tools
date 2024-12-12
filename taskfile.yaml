@@ -16,4 +16,4 @@ tasks:
       BUILD_TOOL: nerdctl
     prompt: Build {{.IMAGE_NAME}}:{{.TAG}} ?
     cmds:
-      - '{{ if eq .SUDO true }}sudo{{- end }} {{ .BUILD_TOOL }} build -f helm-tools.Dockerfile --progress plain -t {{.IMAGE_NAME}}:{{.TAG}} .'
+      - '{{ if eq .SUDO true }}sudo{{- end }} {{ .BUILD_TOOL }} build -f Dockerfile --progress plain -t {{.IMAGE_NAME}}:{{.TAG}} .'
