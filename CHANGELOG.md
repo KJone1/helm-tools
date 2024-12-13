@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2024-12-13 - \[ v3.rc2 \]
+
+- Improved image build time by downloading binaries in parallel.
+
 ## 2024-03-16 - \[ v3.rc1 \]
 
 - Add yq and jq
