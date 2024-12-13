@@ -28,29 +28,28 @@ install helm-docs /usr/local/bin
 curl -L -o /usr/local/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 chmod 755 /usr/local/bin/kubectl
 
-curl -fsSL -o kubeconform.tar.gz https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz
+wget -q -O kubeconform.tar.gz https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz &
+wget -q -O /usr/local/bin/kube-score https://github.com/zegl/kube-score/releases/download/v1.18.0/kube-score_1.18.0_linux_amd64 &
+wget -q -O /usr/local/bin/kube-linter https://github.com/stackrox/kube-linter/releases/download/v0.6.8/kube-linter-linux &
+wait
 tar -xvzf kubeconform.tar.gz
 install kubeconform /usr/local/bin
-
-curl -fsSL -o /usr/local/bin/kube-score https://github.com/zegl/kube-score/releases/download/v1.18.0/kube-score_1.18.0_linux_amd64
 chmod 755 /usr/local/bin/kube-score
-
-curl -fsSL -o /usr/local/bin/kube-linter https://github.com/stackrox/kube-linter/releases/download/v0.6.8/kube-linter-linux
 chmod 755 /usr/local/bin/kube-linter
 
 ### --- Install Helm plugins ---
-helm plugin install https://github.com/chartmuseum/helm-push
-helm plugin install https://github.com/jkroepke/helm-secrets
-helm plugin install https://github.com/nikhilsbhat/helm-images
-helm plugin install https://github.com/databus23/helm-diff
-helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen
-helm plugin install https://github.com/helm-unittest/helm-unittest
-
+helm plugin install https://github.com/chartmuseum/helm-push &
+helm plugin install https://github.com/jkroepke/helm-secrets &
+helm plugin install https://github.com/nikhilsbhat/helm-images &
+helm plugin install https://github.com/databus23/helm-diff &
+helm plugin install https://github.com/KnechtionsCoding/helm-schema-gen &
+helm plugin install https://github.com/helm-unittest/helm-unittest &
+wait
 # yq -- https://github.com/mikefarah/yq
-curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
-chmod 755 /usr/local/bin/yq
-
 # taskfile -- https://taskfile.dev
-curl -fsSL -o task.tar.gz https://github.com/go-task/task/releases/download/v3.35.1/task_linux_amd64.tar.gz
+wget -q -O /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 &
+wget -q -O task.tar.gz https://github.com/go-task/task/releases/download/v3.35.1/task_linux_amd64.tar.gz &
+wait
+chmod 755 /usr/local/bin/yq
 tar -xvzf task.tar.gz
 install task /usr/local/bin
