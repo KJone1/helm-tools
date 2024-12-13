@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-### --- Prep ---
+# --- Prep ---
 apt-get update
 apt-get upgrade -y
 apt-get install --no-install-recommends -y curl wget git-core build-essential jq ca-certificates
@@ -10,6 +10,7 @@ install /usr/bin/make /usr/local/bin/make
 install /usr/bin/jq /usr/local/bin/jq
 wget -q -O - https://dl.k8s.io/release/stable.txt >stable_version
 
+# --- Download ---
 wget -q -O /usr/local/bin/kubectl "https://dl.k8s.io/release/$(cat stable_version)/bin/linux/amd64/kubectl" &
 wget -q -O helm.tar.gz https://get.helm.sh/helm-v3.16.3-linux-amd64.tar.gz &
 wget -q -O helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v0.159.0/helmfile_0.159.0_linux_amd64.tar.gz &
@@ -23,9 +24,8 @@ wget -q -O /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/dow
 wget -q -O task.tar.gz https://github.com/go-task/task/releases/download/v3.35.1/task_linux_amd64.tar.gz &
 wait
 
-# ---
-
-tar -xvzf helm.tar.gz --strip-components=1 
+# --- Install ---
+tar -xvzf helm.tar.gz --strip-components=1
 install helm /usr/local/bin
 
 tar -xvzf helmfile.tar.gz
